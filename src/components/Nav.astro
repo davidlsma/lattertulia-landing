@@ -1,0 +1,178 @@
+---
+const navLinks = [
+  { href: '#carta',     label: 'Carta'       },
+  { href: '#nosotros',  label: 'Nosotros'    },
+  { href: '#galeria',   label: 'Galería'     },
+  { href: '#ubicacion', label: 'Dónde estamos' },
+];
+---
+
+<header id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+
+  <!-- Desktop nav -->
+  <nav class="hidden md:flex items-center justify-between px-6 md:px-10 lg:px-16 py-0 max-w-screen-xl mx-auto">
+    <a href="/" class="group" aria-label="Lattertulia — Inicio">
+      <span class="relative inline-flex items-center justify-center" style="width: 130px; height: 130px;">
+        <span id="logo-bg" class="absolute rounded-full" style="width: 110px; height: 110px; background: #1B2A46;"></span>
+        <img
+          id="nav-logo"
+          src="assets/images/logo-1.png"
+          alt="Lattertulia"
+          width="130"
+          height="130"
+          class="relative object-contain" style="width: 130px; height: 130px; z-index: 1;"
+        />
+      </span>
+    </a>
+    <ul class="flex gap-8 ml-auto items-center" role="list">
+      {navLinks.map(link => (
+        <li>
+          <a href={link.href} class="label-sm nav-text hover:opacity-50 transition-opacity">
+            {link.label}
+          </a>
+        </li>
+      ))}
+      <li>
+        <a href="https://instagram.com/lattertulia.cafe" target="_blank" rel="noopener noreferrer" class="nav-text hover:opacity-50 transition-opacity" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Mobile nav -->
+  <nav class="flex md:hidden flex-col max-w-screen-xl mx-auto px-6 w-full">
+
+    <div class="flex items-center justify-between w-full">
+      <a href="/" class="group" aria-label="Lattertulia — Inicio">
+        <span class="relative inline-flex items-center justify-center" style="width: 130px; height: 130px;">
+          <span id="logo-bg-mobile" class="absolute rounded-full" style="width: 110px; height: 110px; background: #1B2A46;"></span>
+          <img
+            id="nav-logo-mobile"
+            src="assets/images/logo-1.png"
+            alt="Lattertulia"
+            width="130"
+            height="130"
+            class="relative object-contain" style="width: 130px; height: 130px; z-index: 1;"
+          />
+        </span>
+      </a>
+
+      <button
+        id="menu-toggle"
+        aria-expanded="false"
+        aria-label="Abrir menú"
+        class="flex flex-col justify-center items-center gap-1.5 p-2 transition-opacity hover:opacity-60"
+      >
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+
+    <ul id="nav-menu" class="flex flex-col items-center gap-5 w-full overflow-hidden transition-all duration-300" style="max-height: 0; opacity: 0;" role="list">
+      {navLinks.map(link => (
+        <li>
+          <a href={link.href} class="label-sm nav-text hover:opacity-50 transition-opacity nav-link">
+            {link.label}
+          </a>
+        </li>
+      ))}
+      <li>
+        <a href="https://instagram.com/lattertulia.cafe" target="_blank" rel="noopener noreferrer" class="nav-text hover:opacity-50 transition-opacity" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+</header>
+
+<script>
+  const nav = document.getElementById('main-nav');
+  const logo = document.getElementById('nav-logo') as HTMLImageElement;
+  const logoBg = document.getElementById('logo-bg') as HTMLElement;
+  const logoMobile = document.getElementById('nav-logo-mobile') as HTMLImageElement;
+  const logoBgMobile = document.getElementById('logo-bg-mobile') as HTMLElement;
+  const menuToggle = document.getElementById('menu-toggle');
+  const navMenu = document.getElementById('nav-menu') as HTMLElement;
+  let menuOpen = false;
+
+  function openMenu() {
+    menuOpen = true;
+    navMenu.style.maxHeight = '300px';
+    navMenu.style.opacity = '1';
+    navMenu.style.paddingTop = '12px';
+    navMenu.style.paddingBottom = '16px';
+    nav?.classList.add('menu-open');
+    menuToggle?.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeMenu() {
+    menuOpen = false;
+    navMenu.style.maxHeight = '0';
+    navMenu.style.opacity = '0';
+    navMenu.style.paddingTop = '0';
+    navMenu.style.paddingBottom = '0';
+    if (window.scrollY <= 80) nav?.classList.remove('menu-open');
+    menuToggle?.setAttribute('aria-expanded', 'false');
+  }
+
+  menuToggle?.addEventListener('click', () => menuOpen ? closeMenu() : openMenu());
+  document.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', closeMenu));
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) {
+      nav?.classList.add('scrolled');
+      if (logo) { logo.src = 'assets/images/logo-2.png'; }
+      if (logoBg) logoBg.style.background = 'none';
+      if (logoMobile) { logoMobile.src = 'assets/images/logo-2.png'; }
+      if (logoBgMobile) logoBgMobile.style.background = 'none';
+    } else {
+      nav?.classList.remove('scrolled');
+      if (logo) { logo.src = 'assets/images/logo-1.png'; }
+      if (logoBg) logoBg.style.background = '#1B2A46';
+      if (logoMobile) { logoMobile.src = 'assets/images/logo-1.png'; }
+      if (logoBgMobile) logoBgMobile.style.background = '#1B2A46';
+    }
+  }, { passive: true });
+</script>
+
+<style>
+  #main-nav {
+    background: transparent;
+  }
+  #main-nav .nav-text {
+    color: #FAFAF8;
+  }
+  #main-nav.scrolled,
+  #main-nav.menu-open {
+    background: #F2EBE0;
+    border-bottom: 1px solid rgba(27,42,70,0.08);
+  }
+  #main-nav.scrolled .nav-text,
+  #main-nav.menu-open .nav-text {
+    color: #1B2A46;
+  }
+  #menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .hamburger-line {
+    display: block;
+    width: 24px;
+    height: 2px;
+    border-radius: 2px;
+    transition: background 0.3s;
+    background: #FAFAF8;
+  }
+  #main-nav.scrolled .hamburger-line,
+  #main-nav.menu-open .hamburger-line {
+    background: #1B2A46;
+  }
+</style>

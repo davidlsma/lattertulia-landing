@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary:      #1B2A46;
+  --color-secondary:    #C8A880;
+  --color-surface:      #FAFAF8;
+  --color-surface-low:  #F2EBE0;
+  --color-surface-high: #DDD3C4;
+  --color-on-surface:   #111827;
+  --color-muted:        #6B6560;
+
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+
+  --nav-blur: 20px;
+}
+
+/* Tailwind v4 ya incluye el reset en @layer base.
+   No repetir aquí: un selector * fuera de @layer
+   tiene mayor prioridad de cascada que @layer utilities
+   y anularía mx-auto, py-*, px-*, etc. */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== TIPOGRAFÍA FLUIDA ===== */
+.heading-display { font-family: var(--font-display); font-size: clamp(3.5rem, 8vw, 8rem);  line-height: 1; letter-spacing: -0.03em; font-weight: 600; }
+.heading-xl      { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 5rem);  line-height: 1.1; letter-spacing: -0.03em; font-weight: 600; }
+.heading-lg      { font-family: var(--font-display); font-size: clamp(1.75rem, 3vw, 3rem); line-height: 1.15; font-weight: 500; }
+.heading-md      { font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 2rem); line-height: 1.3;  font-weight: 400; }
+.body-lg         { font-size: clamp(0.9375rem, 1.2vw, 1.0625rem); line-height: 1.75; }
+.label-sm        { font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+
+/* ===== GRAYSCALE HOVER ===== */
+.img-bw {
+  filter: grayscale(1);
+  transition: filter 0.5s ease;
+}
+.img-bw:hover {
+  filter: grayscale(0);
+}

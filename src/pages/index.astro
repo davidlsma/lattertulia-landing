@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import HeroSection from '../components/HeroSection.astro';
+import MenuSection from '../components/MenuSection.astro';
+import AboutSection from '../components/AboutSection.astro';
+import GallerySection from '../components/GallerySection.astro';
+import LocationSection from '../components/LocationSection.astro';
+import FooterSection from '../components/FooterSection.astro';
+---
+
+<BaseLayout
+  title="Lattertulia — Café de Especialidad en Córdoba"
+  description="Café de especialidad, viennoiserie y pastelería artesanal en José Manuel Estrada 284, Nueva Córdoba. Lun–Sáb 08–21hs · Dom 16–21hs."
+>
+  <Nav />
+
+  <main>
+    <HeroSection />
+    <MenuSection />
+    <AboutSection />
+    <GallerySection />
+    <LocationSection />
+  </main>
+
+  <FooterSection />
+</BaseLayout>
+
+<script>
+  import('../scripts/scroll-animations');
+</script>
